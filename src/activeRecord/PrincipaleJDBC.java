@@ -16,14 +16,30 @@ public class PrincipaleJDBC {
 
         // variables de connection
         String userName = "root";
-        String password = "root";
-        String serverName = "127.0.0.1";
-        //String portNumber = "3306";
-        String portNumber = "8889"; // Port par défaut sur MAMP
-        String tableName = "personne";
+        String password;
+        String serverName;
+        String portNumber;
+        String tableName;
+        String dbName;
+        if (System.getProperty("os.name").contains("Windows")) {
+            password = "";
+            serverName = "127.0.0.1";
+            //String portNumber = "3306";
+            portNumber = "3306"; // Port par défaut sur XAMPP
+            tableName = "personne";
 
-        // il faut une base nommee testPersonne !
-        String dbName = "testpersonne";
+            // il faut une base nommee testPersonne !
+            dbName = "testpersonne";
+        } else {
+            password = "root";
+            serverName = "127.0.0.1";
+            //String portNumber = "3306";
+            portNumber = "8889"; // Port par défaut sur MAMP
+            tableName = "personne";
+
+            // il faut une base nommee testPersonne !
+            dbName = "testpersonne";
+        }
 
         try {
             // chargement du driver jdbc
