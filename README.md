@@ -1,1 +1,2 @@
-# activeRecord_FissonRonan_ThibautL-3
+FISSON Ronan    
+LOUYOT Thibaut
