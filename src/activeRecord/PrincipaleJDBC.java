@@ -8,13 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class PrincipaleJDBC {
 
     // IL FAUT PENSER A AJOUTER MYSQLCONNECTOR AU CLASSPATH
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
 
 
@@ -127,6 +128,11 @@ public class PrincipaleJDBC {
         } catch (Exception e) {
             System.out.println("*** ERREUR inconnue... ***");
             e.printStackTrace();
+        }
+
+        ArrayList<Personne> p = Personne.findAll();
+        for (Personne p1 : p) {
+            System.out.println(p1);
         }
     }
 }
