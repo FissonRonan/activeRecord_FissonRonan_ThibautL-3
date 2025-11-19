@@ -8,15 +8,32 @@ import java.util.Properties;
 public class DBConnection {
     private static DBConnection instance;
     private Connection connect;
+    private String dbName;
+    private String activedbName;
 
-    private DBConnection( ){
+    private DBConnection(){
+        dbName = "";
+        activedbName = "";
+    }
+
+    public static synchronized DBConnection getInstance(){
+        if (instance == null) instance = new DBConnection();
+        return instance;
+    }
+
+    public Connection getConnection() {
+        System.out.println(!instance.activedbName.equals(instance.dbName));
+        if (!instance.activedbName.equals(instance.dbName)) instance.createConnection();
+        return connect;
+    }
+
+    private void createConnection() {
         // variables de connection
         String userName = "root";
         String password;
         String serverName;
         String portNumber;
         String tableName;
-        String dbName;
         if (System.getProperty("os.name").contains("Windows")) {
             password = "";
             serverName = "127.0.0.1";
@@ -25,7 +42,7 @@ public class DBConnection {
             tableName = "personne";
 
             // il faut une base nommee testPersonne !
-            dbName = "testpersonne";
+//            dbName = "testpersonne";
         } else {
             password = "root";
             serverName = "127.0.0.1";
@@ -34,9 +51,10 @@ public class DBConnection {
             tableName = "personne";
 
             // il faut une base nommee testPersonne !
-            dbName = "testpersonne";
+//            dbName = "testpersonne";
         }
         try {
+            activedbName = dbName;
             // chargement du driver jdbc
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -57,12 +75,7 @@ public class DBConnection {
         }
     }
 
-    public static synchronized DBConnection getInstance( ){
-        if (instance == null) instance = new DBConnection( );
-        return instance;
-    }
-
-    public Connection getConnection() {
-        return connect;
+    public void setNomDB(String nomDB) {
+        dbName = nomDB;
     }
 }
